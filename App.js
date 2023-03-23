@@ -2,12 +2,21 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ProductsList } from "./screens/ProductsList.js";
+import { ProductDetails} from "./screens/ProductDetails.js";
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <View style={styles.Container}>
-      <Text style={styles.text}>Hello world</Text>
-    </View>)
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name ="Products" component={ProductsList} />
+        {/* <Stack.Screen name ="ProductDetails" component={ProductDetails} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
+    
+  )
 }
 
 const styles = StyleSheet.create({
