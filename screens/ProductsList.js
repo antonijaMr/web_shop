@@ -1,42 +1,51 @@
-import React,{useEffect, useState} from "react";
-import {View, Text, FlatList,StyleSheet} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { getProducts } from "../services/ProductService";
+import { Product } from "../components/Product";
+import { ProductDetails } from "./ProductDetails";
 
-export function ProductsList(){
+export function ProductsList({ navigation }) {
 
-    function renderProduct({item: product}){
-        return(
-            <Product></Product>
+    function renderProduct({ item: product }) {
+        return (
+            <Product
+                {...product}
+                onPress={() => {
+                    navigation.navigate('ProductDetails', { productId: product.id })
+                }}
+            />
         )
     }
 
-    const[product,setProduct] =useState([]);
+    const [products, setProducts] = useState([]);
 
-    useEffect(()=>{
-        setProduct(getProducts())
+    useEffect(() => {
+        setProducts(getProducts())
 
     })
 
-    return(
-        <FlatList style={styles.productsList}
-        contentContainerStyle={styles.productsListContainer}>
-            keyExtractor={(item)=> item.id.toString()}
-            data={product}
+    return (
+        <FlatList
+            style={styles.productsList}
+            contentContainerStyle={styles.productsListContainer}
+            keyExtractor={(item) => item.id.toString()}
+            data={products}
             renderItem={renderProduct}
-
-        </FlatList>
+        />
 
     )
 }
 
+// export default ProductsList;
+
 
 const styles = StyleSheet.create({
     productsList: {
-      backgroundColor: "#eeeeee",
+        backgroundColor: "#eeeeee",
     },
     productsListContainer: {
-      backgroundColor: "#eeeeee",
-      paddingVertical: 8,
-      marginHorizontal: 8,
+        backgroundColor: "#eeeeee",
+        paddingVertical: 8,
+        marginHorizontal: 8,
     },
-  });
+});
