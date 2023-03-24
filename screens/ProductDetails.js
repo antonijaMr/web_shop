@@ -17,7 +17,7 @@ export function ProductDetails({route}) {
 
   function onAddToCart(){
     addItemToCart(product.id)
-    console.log("Hi")
+    
   }
 
   return (
