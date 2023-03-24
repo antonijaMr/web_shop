@@ -4,20 +4,20 @@ const PRODUCTS = [
         name: "butterfly pro",
         price: 100,
         image: require("../assets/bestButterfly.jpeg"),
-        descriptions: "Best butterfly in the wolrd i have seen them all"
+        description: "Best butterfly in the wolrd i have seen them all"
     },
     {
         id: 2,
         name: "butterfly blu",
         price: 10,
         image: require("../assets/blubutterfly.jpg"),
-        descriptions: "Best butterfly in the wolrd i have seen them all"
+        description: "Best butterfly in the wolrd i have seen them all"
     }, {
         id: 3,
         name: "butterfly rose",
         price: 999,
         image: require("../assets/rose.jpg"),
-        descriptions: "Best butterfly in the wolrd i have seen them all"
+        description: "Best butterfly in the wolrd i have seen them all"
     },]
 
     export function getProducts(){

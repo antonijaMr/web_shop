@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { getProducts } from "../services/ProductService";
 import { Product } from "../components/Product";
-import { ProductDetails } from "./ProductDetails";
+// import { ProductDetails } from "./ProductDetails.js";
 
-export function ProductsList({ navigation }) {
+export function ProductsList({navigation}) {
 
     function renderProduct({ item: product }) {
         return (
             <Product
                 {...product}
                 onPress={() => {
-                    navigation.navigate('ProductDetails', { productId: product.id })
+                    navigation.navigate('ProductDetails', {productId: product.id })
                 }}
             />
         )
