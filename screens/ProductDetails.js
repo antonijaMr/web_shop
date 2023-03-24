@@ -1,9 +1,39 @@
-import React from 'react';
-import { Text,StyleSheet} from 'react-native';
+import React, { useEffect,useState, useContext} from 'react';
+import { Text,StyleSheet,View,Image,ScrollView, SafeAreaView,Button} from 'react-native';
+import { getProduct } from '../services/ProductService';
+import { cartContext } from '../CartContext';
 
-export function ProductDetails() {
+export function ProductDetails({route}) {
+
+  const {productId}= route.params;
+  const [product,setProduct] =useState({});
+
+
+  useEffect(()=>{
+    setProduct(getProduct(productId))
+  })
+
+  const {addItemToCart} =useContext(cartContext);
+
+  function onAddToCart(){
+    addItemToCart(product.id)
+    console.log("Hi")
+  }
+
   return (
-    <Text>Product Details</Text>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={product.image}/>
+        </View>
+        <View>
+          <Text style={styles.name}>{product.name}</Text>
+          <Text style={styles.price}>$ {product.price}</Text>
+          <Text style={styles.description}>{product.description}</Text>
+          <Button onPress={onAddToCart} title="Add to Cart" />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
@@ -22,16 +52,19 @@ const styles = StyleSheet.create({
     name: {
       fontSize: 22,
       fontWeight: 'bold',
+      textAlign: 'center'
     },
     price: {
       fontSize: 16,
       fontWeight: '600',
       marginBottom: 8,
+      textAlign: 'center'
     },
     description: {
       fontSize: 16,
       fontWeight: '400',
       color: '#787878',
       marginBottom: 16,
+      textAlign: 'center'
     },
   });
