@@ -1,20 +1,40 @@
 import React, {useEffect,useState, useContext} from "react";
-import {View, Image, Text,Button, FlatList,StyleSheet} from 'react-native';
+import {View, Image, Text,Button, FlatList,StyleSheet,Alert} from 'react-native';
 import { cartContext } from "../CartContext";
 
 export function Cart({navigation}){
-    const {items,getItemsCount,getTotalPrice} =useContext(cartContext);
+    let {items,getItemsCount,getTotalPrice} =useContext(cartContext);
 
     function Totals(){
         let [total,setTotal]=useState(0);
         useEffect(()=>{
             setTotal(getTotalPrice())
         })
+		const emptyCart=()=>{
+			return Alert.alert(
+				"Are you sure",
+				"GIB MONEY",
+				[
+					{
+						text:"OKIE",
+						onPress:()=>{
+							navigation.popToTop();
+						}
+					},
+					{text:"NO >:("}
+
+				]
+
+			)
+		}
         return(
+			<>
             <View style={styles.cartLineTotal}>
-                <Text style={[styles.lineLeft,styles.lineTotal]}>Total</Text>
+                <Text style={[styles.lineLeft,styles.lineTotal]}>Total </Text>
                 <Text style={styles.mainTotal}>$ {total}</Text>
-            </View>
+		        </View>
+				<Button title="BUY" style={styles.buttonStyle} onPress={()=>emptyCart()}></Button>
+				</>
         )
 
     }
@@ -25,6 +45,7 @@ export function Cart({navigation}){
                 <Image style={styles.image} source={item.product.image}/>
                 <Text style={styles.lineLeft}>{item.product.name} x {item.qty}
                 <Text style={styles.productTotal}> $ {item.totalPrice}</Text></Text>
+				
             </View>
             </>
         )
@@ -38,12 +59,14 @@ export function Cart({navigation}){
         keyExtractor={(item)=>item.product.id.toString()}
         ListFooterComponent={Totals}
         >
-
         </FlatList>
 
     )
 }
 const styles = StyleSheet.create({
+	buttonStyle:{
+		paddingHorizontal:20
+	},
 	cartLine: {
 		flexDirection: 'row',
 		width: '80%',
